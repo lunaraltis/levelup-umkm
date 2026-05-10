@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getContent, saveContent } from '@/lib/cms';
 
+import { revalidatePath } from 'next/cache';
+
 export async function GET() {
   const content = await getContent();
   return NextResponse.json(content);
@@ -12,6 +14,7 @@ export async function POST(request: Request) {
     const success = await saveContent(data);
     
     if (success) {
+      revalidatePath('/'); // Menghapus cache halaman utama
       return NextResponse.json({ success: true, message: 'Konten berhasil disimpan!' });
     } else {
       return NextResponse.json({ success: false, message: 'Gagal menyimpan konten ke file.' }, { status: 500 });
