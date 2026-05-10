@@ -9,7 +9,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const success = saveContent(data);
+    const success = await saveContent(data);
     
     if (success) {
       return NextResponse.json({ success: true, message: 'Konten berhasil disimpan!' });
