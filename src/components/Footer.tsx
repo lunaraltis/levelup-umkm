@@ -73,9 +73,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '1.5rem 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '1.5rem 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <p style={{ margin: 0, fontSize: '0.8125rem' }}>© 2026 Level Up UMKM. All rights reserved.</p>
-          <p style={{ margin: 0, fontSize: '0.8125rem' }}>Dibuat dengan ❤️ untuk UMKM Indonesia</p>
         </div>
       </div>
 
