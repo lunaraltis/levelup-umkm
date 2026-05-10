@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Save, Plus, Trash2, LogOut } from "lucide-react";
+import { Save, Plus, Trash2, LogOut, ArrowLeft, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 export default function AdminPanel() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -75,7 +76,7 @@ export default function AdminPanel() {
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--color-bg)' }}>
         <form onSubmit={handleLogin} style={{ backgroundColor: 'white', padding: '3rem', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-lg)', width: '100%', maxWidth: '400px', textAlign: 'center' }}>
           <h2 style={{ marginBottom: '1.5rem', fontSize: '1.5rem' }}>Login Admin</h2>
-          <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem', fontSize: '0.9375rem' }}>Masukkan PIN untuk masuk ke CMS (PIN: admin123)</p>
+          <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem', fontSize: '0.9375rem' }}>Masukkan PIN rahasia untuk masuk ke CMS</p>
           <input 
             type="password" 
             value={password} 
@@ -83,7 +84,11 @@ export default function AdminPanel() {
             placeholder="Masukkan PIN"
             style={{ width: '100%', padding: '0.875rem 1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', marginBottom: '1.5rem', outline: 'none' }}
           />
-          <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Masuk Dashboard</button>
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '1.5rem' }}>Masuk Dashboard</button>
+          
+          <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-text-muted)', fontSize: '0.875rem', textDecoration: 'none', fontWeight: 500 }}>
+            <ArrowLeft size={16} /> Kembali ke Halaman Utama
+          </Link>
         </form>
       </div>
     );
@@ -108,7 +113,11 @@ export default function AdminPanel() {
             >
               <Save size={18} /> {saveStatus === 'saving' ? 'Menyimpan...' : 'Simpan Perubahan'}
             </button>
-            <button onClick={() => setIsAuthenticated(false)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-text-muted)' }}>
+            <div style={{ width: '1px', height: '24px', backgroundColor: 'var(--color-border)', margin: '0 0.5rem' }} />
+            <Link href="/" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: 'var(--color-text-muted)', fontSize: '0.875rem', fontWeight: 500 }}>
+              <ExternalLink size={18} /> Lihat Web
+            </Link>
+            <button onClick={() => setIsAuthenticated(false)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-text-muted)', fontSize: '0.875rem', fontWeight: 500 }}>
               <LogOut size={18} /> Keluar
             </button>
           </div>
