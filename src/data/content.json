@@ -1,0 +1,94 @@
+{
+  "faqs": [
+    {
+      "question": "Apakah saya harus mengerti IT untuk mengelola website?",
+      "answer": "Sama sekali tidak. Sistem kami dirancang khusus untuk pengguna awam. Anda akan mendapatkan dashboard yang sangat mudah digunakan, seperti menggunakan aplikasi media sosial biasa. Selain itu, tim kami siap membantu Anda 24/7."
+    },
+    {
+      "question": "Apa saja yang sudah termasuk dalam biaya langganan?",
+      "answer": "Biaya langganan bulanan sudah mencakup biaya server (hosting), domain tahunan (.com/.id), pemeliharaan sistem, keamanan SSL, update fitur terbaru, dan dukungan teknis. Tidak ada biaya tersembunyi lainnya."
+    },
+    {
+      "question": "Bagaimana sistem pembayaran untuk pembeli di toko online saya?",
+      "answer": "Kami mengintegrasikan payment gateway otomatis. Pelanggan Anda bisa membayar melalui Transfer Bank (Virtual Account), QRIS, E-Wallet (OVO, GoPay, Dana), hingga minimarket. Dana akan otomatis masuk ke rekening Anda."
+    },
+    {
+      "question": "Berapa lama proses pembuatan website?",
+      "answer": "Untuk paket Starter dan Pro Business, website Anda akan siap live dalam waktu 3-5 hari kerja. Untuk paket Enterprise dengan desain custom, membutuhkan waktu sekitar 7-10 hari kerja."
+    },
+    {
+      "question": "Apakah saya bisa membatalkan langganan kapan saja?",
+      "answer": "Ya, Anda bisa berhenti berlangganan kapan saja tanpa dikenakan denda atau biaya penalti."
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Siti Aminah",
+      "role": "Pemilik 'Rasa Nusantara' Katering",
+      "content": "Awalnya saya ragu untuk go online karena tidak mengerti IT. Tapi dengan Level Up UMKM, semuanya diurus. Sebulan setelah web jadi, pesanan katering saya naik 40%.",
+      "rating": 5,
+      "initials": "SA"
+    },
+    {
+      "name": "Budi Santoso",
+      "role": "Founder 'Kopi Senja' Roastery",
+      "content": "Sistem toko onlinenya sangat canggih. Pelanggan bisa langsung hitung ongkir dan bayar pakai QRIS. Harga langganannya sangat murah dibanding bayar programmer sendiri.",
+      "rating": 5,
+      "initials": "BS"
+    },
+    {
+      "name": "Diana Putri",
+      "role": "Owner 'Dian Fashion' Boutique",
+      "content": "Paket Enterprise sangat membantu! Tim Level Up yang urus semuanya dari desain feed sampai Reels. Desainnya mewah, persis seperti brand internasional.",
+      "rating": 5,
+      "initials": "DP"
+    }
+  ],
+  "pricing": [
+    {
+      "name": "Starter",
+      "description": "Sempurna untuk bisnis yang baru mulai go-digital.",
+      "priceUpfront": "1.500.000",
+      "priceMonthly": "150.000",
+      "features": [
+        "Website Landing Page",
+        "Domain .com / .id Gratis (1 Thn)",
+        "Hosting Cepat 2GB",
+        "Katalog hingga 50 Produk",
+        "Integrasi WhatsApp Chat",
+        "Dukungan Email & Chat"
+      ]
+    },
+    {
+      "name": "Pro Business",
+      "description": "Paket lengkap dengan fitur toko online otomatis.",
+      "priceUpfront": "3.500.000",
+      "priceMonthly": "350.000",
+      "features": [
+        "Website Toko Online Lengkap",
+        "Domain Premium Gratis",
+        "Hosting Unlimited",
+        "Produk Tidak Terbatas",
+        "Integrasi Payment Gateway",
+        "Perhitungan Ongkir Otomatis",
+        "Dashboard Manajemen Pesanan",
+        "Prioritas Dukungan 24/7"
+      ]
+    },
+    {
+      "name": "Enterprise",
+      "description": "Solusi all-in-one termasuk manajemen media sosial.",
+      "priceUpfront": "7.500.000",
+      "priceMonthly": "750.000",
+      "features": [
+        "Semua Fitur Pro Business",
+        "Desain Eksklusif (Custom)",
+        "Manajemen Akun Instagram (12 Post/Bln)",
+        "Pembuatan Konten Video (4 Reels/Bln)",
+        "Setup Iklan Facebook & IG Ads",
+        "Laporan Performa Bulanan",
+        "Account Manager Khusus"
+      ]
+    }
+  ]
+}
