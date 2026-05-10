@@ -83,13 +83,6 @@ export default function Navbar() {
           <Link href="#contact" className="btn btn-primary" style={{ width: '100%' }} onClick={() => setIsMobileMenuOpen(false)}>Mulai Sekarang</Link>
         </div>
       )}
-
-      <style jsx>{`
-        @media (max-width: 768px) {
-          .desktop-menu { display: none !important; }
-          .mobile-menu-btn { display: block !important; }
-        }
-      `}</style>
     </nav>
   );
 }
