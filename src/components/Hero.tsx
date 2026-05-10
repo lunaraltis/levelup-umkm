@@ -31,7 +31,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section style={{ 
+    <section className="hero-section" style={{ 
       paddingTop: '7rem', paddingBottom: '2rem',
       minHeight: '100vh', display: 'flex', alignItems: 'center',
       position: 'relative', overflow: 'hidden', backgroundColor: 'white'
@@ -87,11 +87,10 @@ export default function Hero() {
 
         {/* Hero Image Carousel */}
         <AnimateOnScroll delay={0.4} direction="scale" duration={1.3} style={{ marginTop: '4rem' }}>
-          <div style={{
+          <div className="hero-carousel" style={{
             borderRadius: 'var(--radius-xl)', overflow: 'hidden',
             boxShadow: 'var(--shadow-xl)', border: '1px solid var(--color-border)',
-            maxWidth: '1000px', margin: '0 auto', position: 'relative',
-            height: '480px'
+            maxWidth: '1000px', margin: '0 auto', position: 'relative'
           }}>
             {/* Slides */}
             {slides.map((slide, i) => (
@@ -119,17 +118,17 @@ export default function Hero() {
             }} />
 
             {/* Stats pills */}
-            <div style={{
-              position: 'absolute', bottom: '2rem', left: '2rem', right: '2rem',
-              display: 'flex', gap: '1rem', flexWrap: 'wrap', zIndex: 2
+            <div className="hero-stats" style={{
+              position: 'absolute', bottom: '2rem', left: '1rem', right: '1rem',
+              display: 'flex', gap: '0.5rem', flexWrap: 'wrap', zIndex: 2
             }}>
-              <div className="pill" style={{ background: 'white', border: 'none', boxShadow: 'var(--shadow-md)' }}>
+              <div className="pill" style={{ background: 'white', border: 'none', boxShadow: 'var(--shadow-md)', fontSize: '0.75rem' }}>
                 <CountUp end={500} suffix="+" /> UMKM Terdaftar
               </div>
-              <div className="pill" style={{ background: 'white', border: 'none', boxShadow: 'var(--shadow-md)' }}>
+              <div className="pill" style={{ background: 'white', border: 'none', boxShadow: 'var(--shadow-md)', fontSize: '0.75rem' }}>
                 Rating 4.9 / 5.0
               </div>
-              <div className="pill" style={{ background: 'white', border: 'none', boxShadow: 'var(--shadow-md)' }}>
+              <div className="pill" style={{ background: 'white', border: 'none', boxShadow: 'var(--shadow-md)', fontSize: '0.75rem' }}>
                 Rata-rata +<CountUp end={150} />% Omzet
               </div>
             </div>
@@ -194,6 +193,28 @@ export default function Hero() {
         }
         .marquee-track:hover {
           animation-play-state: paused;
+        }
+        .hero-carousel {
+          height: 480px;
+        }
+        @media (max-width: 768px) {
+          .hero-section {
+            padding-top: 5.5rem !important;
+            min-height: auto !important;
+          }
+          .hero-carousel {
+            height: 240px !important;
+          }
+          .hero-stats {
+            bottom: 0.75rem !important;
+            left: 0.75rem !important;
+            right: 0.75rem !important;
+            gap: 0.375rem !important;
+          }
+          .hero-stats .pill {
+            padding: 0.375rem 0.625rem !important;
+            font-size: 0.625rem !important;
+          }
         }
       `}</style>
     </section>

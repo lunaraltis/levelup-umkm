@@ -298,3 +298,36 @@ img {
 .animated-link:hover::after {
   width: 100%;
 }
+
+/* ==============================
+   MOBILE RESPONSIVE (max 768px)
+   ============================== */
+@media (max-width: 768px) {
+  .section {
+    padding: 3.5rem 0;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  /* Pricing harga font */
+  .grid-cols-3 .btn,
+  .grid-cols-2 .btn {
+    font-size: 0.875rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  /* Mobile Menu Button - show */
+  .mobile-menu-btn {
+    display: block !important;
+  }
+}
