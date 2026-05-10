@@ -40,7 +40,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop */}
-        <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }} className="desktop-menu">
+        <div className="desktop-nav">
           {[
             { href: '#about', label: 'Tentang' },
             { href: '#features', label: 'Layanan' },
@@ -62,7 +62,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} style={{ display: 'none' }}>
+        <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
