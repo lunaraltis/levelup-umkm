@@ -165,7 +165,7 @@ export default function Hero() {
           }}>
             Dipercaya oleh ratusan pelaku UMKM di seluruh Indonesia
           </p>
-          <div style={{ position: 'relative', overflow: 'hidden', maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+          <div style={{ position: 'relative', width: '100%', overflow: 'hidden', maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
             <div className="marquee-track">
               {[...brands, ...brands].map((name, i) => (
                 <span key={i} style={{ 

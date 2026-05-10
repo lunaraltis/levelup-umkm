@@ -56,6 +56,7 @@ export default function AnimateOnScroll({
         transform: isVisible ? 'translateY(0) translateX(0) scale(1)' : getInitialTransform(),
         transition: `opacity ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
         willChange: 'opacity, transform',
+        overflow: 'hidden',
         ...style
       }}
     >
