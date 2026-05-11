@@ -26,7 +26,7 @@ export default function Navbar() {
       <div className="container flex justify-between items-center">
         <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
           <Image 
-            src="/images/logo.png" 
+            src="/images/logo_revisi.png" 
             alt="Level Up UMKM Logo" 
             width={160} 
             height={48} 

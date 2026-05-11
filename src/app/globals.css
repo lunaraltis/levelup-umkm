@@ -3,10 +3,10 @@
   --color-surface: #FFFFFF;
   --color-text: #111111;
   --color-text-muted: #6B7280;
-  --color-brand: #0A1B3F; /* Navy Blue dari Logo */
-  --color-brand-light: #152B5C; 
-  --color-accent: #00D563; /* Vibrant Green dari Logo */
-  --color-accent-hover: #00E86C;
+  --color-brand: #111111;
+  --color-brand-light: #333333;
+  --color-accent: #D4AF37;
+  --color-accent-hover: #E8C84A;
   --color-border: #E5E7EB;
   
   --radius-sm: 0.5rem;

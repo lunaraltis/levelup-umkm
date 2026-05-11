@@ -11,7 +11,7 @@ export default function Footer() {
           <div>
             <div style={{ display: 'inline-flex', backgroundColor: 'white', padding: '0.5rem 1rem', borderRadius: 'var(--radius-md)', marginBottom: '1.25rem' }}>
               <Image 
-                src="/images/logo.png" 
+                src="/images/logo_revisi.png" 
                 alt="Level Up UMKM Logo" 
                 width={140} 
                 height={40} 
