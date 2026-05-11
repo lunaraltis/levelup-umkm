@@ -9,14 +9,15 @@ export default function Footer() {
         <div className="grid footer-grid" style={{ gap: '3rem', paddingBottom: '3rem' }}>
           {/* Brand */}
           <div>
-            <div style={{ display: 'inline-flex', marginBottom: '1.5rem' }}>
-              <Image 
-                src="/images/logo_revisi.png" 
-                alt="Level Up UMKM Logo" 
-                width={180} 
-                height={56} 
-                style={{ objectFit: 'contain', height: '44px', width: 'auto' }}
-              />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '1.25rem' }}>
+              <div style={{
+                width: '36px', height: '36px', backgroundColor: 'var(--color-accent)',
+                borderRadius: 'var(--radius-sm)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: 'var(--color-brand)', fontWeight: 'bold', fontSize: '1rem'
+              }}>L</div>
+              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.125rem', color: 'white' }}>
+                Level Up UMKM
+              </span>
             </div>
             <p style={{ fontSize: '0.9375rem', lineHeight: 1.7, maxWidth: '280px' }}>
               Platform digitalisasi UMKM yang membantu bisnis lokal naik kelas dengan solusi website, e-commerce, dan media sosial.
