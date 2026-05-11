@@ -9,13 +9,13 @@ export default function Footer() {
         <div className="grid footer-grid" style={{ gap: '3rem', paddingBottom: '3rem' }}>
           {/* Brand */}
           <div>
-            <div style={{ display: 'inline-flex', backgroundColor: 'white', padding: '0.5rem 1rem', borderRadius: 'var(--radius-md)', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'inline-flex', marginBottom: '1.5rem' }}>
               <Image 
                 src="/images/logo_revisi.png" 
                 alt="Level Up UMKM Logo" 
-                width={140} 
-                height={40} 
-                style={{ objectFit: 'contain', height: '32px', width: 'auto' }}
+                width={180} 
+                height={56} 
+                style={{ objectFit: 'contain', height: '44px', width: 'auto' }}
               />
             </div>
             <p style={{ fontSize: '0.9375rem', lineHeight: 1.7, maxWidth: '280px' }}>

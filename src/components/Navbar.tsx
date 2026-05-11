@@ -28,9 +28,9 @@ export default function Navbar() {
           <Image 
             src="/images/logo_revisi.png" 
             alt="Level Up UMKM Logo" 
-            width={160} 
-            height={48} 
-            style={{ objectFit: 'contain', height: '36px', width: 'auto' }}
+            width={200} 
+            height={60} 
+            style={{ objectFit: 'contain', height: '48px', width: 'auto' }}
             priority
           />
         </Link>
