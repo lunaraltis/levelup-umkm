@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -8,15 +9,14 @@ export default function Footer() {
         <div className="grid footer-grid" style={{ gap: '3rem', paddingBottom: '3rem' }}>
           {/* Brand */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '1.25rem' }}>
-              <div style={{
-                width: '36px', height: '36px', backgroundColor: 'var(--color-accent)',
-                borderRadius: 'var(--radius-sm)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'var(--color-brand)', fontWeight: 'bold', fontSize: '1rem'
-              }}>L</div>
-              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.125rem', color: 'white' }}>
-                Level Up UMKM
-              </span>
+            <div style={{ display: 'inline-flex', backgroundColor: 'white', padding: '0.5rem 1rem', borderRadius: 'var(--radius-md)', marginBottom: '1.25rem' }}>
+              <Image 
+                src="/images/logo.png" 
+                alt="Level Up UMKM Logo" 
+                width={140} 
+                height={40} 
+                style={{ objectFit: 'contain', height: '32px', width: 'auto' }}
+              />
             </div>
             <p style={{ fontSize: '0.9375rem', lineHeight: 1.7, maxWidth: '280px' }}>
               Platform digitalisasi UMKM yang membantu bisnis lokal naik kelas dengan solusi website, e-commerce, dan media sosial.

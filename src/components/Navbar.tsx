@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,20 +24,15 @@ export default function Navbar() {
       padding: '0.75rem 0'
     }}>
       <div className="container flex justify-between items-center">
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-          <div style={{
-            width: '36px', height: '36px',
-            backgroundColor: 'var(--color-brand)',
-            borderRadius: 'var(--radius-sm)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: 'var(--color-accent)',
-            fontWeight: 'bold', fontSize: '1rem'
-          }}>
-            L
-          </div>
-          <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.125rem', color: 'var(--color-brand)' }}>
-            Level Up UMKM
-          </span>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
+          <Image 
+            src="/images/logo.png" 
+            alt="Level Up UMKM Logo" 
+            width={160} 
+            height={48} 
+            style={{ objectFit: 'contain', height: '36px', width: 'auto' }}
+            priority
+          />
         </Link>
 
         {/* Desktop */}
