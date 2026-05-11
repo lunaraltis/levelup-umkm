@@ -17,7 +17,7 @@ export default function Pricing({ initialData }: { initialData: any[] }) {
             <span style={{ fontStyle: 'italic', color: 'var(--color-accent)' }}>sepadan</span>
           </h2>
           <p style={{ color: 'var(--color-text-muted)', fontSize: '1.125rem' }}>
-            Tanpa biaya pembuatan di awal. Cukup bayar langganan bulanan.
+            Dapatkan paket komplit (Website & Sosmed) dengan harga ramah UMKM.
           </p>
         </AnimateOnScroll>
 
@@ -45,12 +45,29 @@ export default function Pricing({ initialData }: { initialData: any[] }) {
                     }}>PALING DIMINATI</div>
                   )}
                   <h3 style={{ fontSize: '1.375rem', color: isActive ? 'white' : 'var(--color-brand)', marginBottom: '0.5rem', transition: 'color 0.4s' }}>{plan.name}</h3>
-                  <p style={{ fontSize: '0.875rem', color: isActive ? 'rgba(255,255,255,0.6)' : 'var(--color-text-muted)', marginBottom: '1.5rem', transition: 'color 0.4s' }}>{plan.description}</p>
+                  <p style={{ fontSize: '0.875rem', color: isActive ? 'rgba(255,255,255,0.6)' : 'var(--color-text-muted)', marginBottom: '1.25rem', transition: 'color 0.4s' }}>{plan.description}</p>
+                  
+                  {plan.promoBadge && (
+                    <div style={{
+                      display: 'inline-block', backgroundColor: isActive ? 'rgba(255, 255, 255, 0.2)' : 'rgba(239, 68, 68, 0.1)', 
+                      color: isActive ? 'white' : '#ef4444',
+                      padding: '0.375rem 0.75rem', borderRadius: 'var(--radius-md)', 
+                      fontSize: '0.75rem', fontWeight: 700, marginBottom: '1rem', alignSelf: 'flex-start'
+                    }}>
+                      {plan.promoBadge}
+                    </div>
+                  )}
+
                   <div style={{ marginBottom: '1.5rem' }}>
+                    {plan.originalPrice && (
+                      <div style={{ textDecoration: 'line-through', color: isActive ? 'rgba(255,255,255,0.6)' : '#ef4444', fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: 600 }}>
+                        Rp {plan.originalPrice}
+                      </div>
+                    )}
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
                       <span style={{ fontSize: '2.25rem', fontWeight: 700, letterSpacing: '-0.02em' }}>Rp {plan.priceUpfront}</span>
                     </div>
-                    <span style={{ fontSize: '0.8125rem', color: isActive ? 'rgba(255,255,255,0.8)' : 'var(--color-text-muted)', display: 'block', marginBottom: '0.75rem', transition: 'color 0.4s' }}>Biaya Setup (Satu Kali Pembayaran)</span>
+                    <span style={{ fontSize: '0.8125rem', color: isActive ? 'rgba(255,255,255,0.8)' : 'var(--color-text-muted)', display: 'block', marginBottom: '0.75rem', transition: 'color 0.4s' }}>Biaya Setup (Satu Kali)</span>
                     
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', backgroundColor: isActive ? 'rgba(0,0,0,0.1)' : 'var(--color-bg)', padding: '0.375rem 0.75rem', borderRadius: 'var(--radius-md)', transition: 'all 0.4s' }}>
                       <span style={{ fontSize: '0.9375rem', fontWeight: 600 }}>+ Rp {plan.priceMonthly}</span>
