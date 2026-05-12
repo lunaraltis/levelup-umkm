@@ -1,31 +1,21 @@
+import type { FaqItem, ServicePage } from "./content-types";
 import { absoluteUrl } from "./site";
 
-export type ServicePage = {
-  slug: string;
-  name: string;
-  shortName: string;
-  headline: string;
-  description: string;
-  intro: string;
-  idealFor: string[];
-  deliverables: string[];
-  outcomes: string[];
-  faqs: Array<{
-    question: string;
-    answer: string;
-  }>;
-};
-
-export const servicePages: ServicePage[] = [
+export const defaultServicePages: ServicePage[] = [
   {
     slug: "website-umkm",
     name: "Jasa Website UMKM",
     shortName: "Website UMKM",
-    headline: "Website bisnis profesional untuk UMKM yang ingin terlihat lebih meyakinkan.",
+    headline: "Bikin bisnis UMKM lebih dipercaya lewat website yang rapi dan profesional.",
     description:
       "Pembuatan website UMKM yang cepat, mobile-friendly, mudah dihubungi lewat WhatsApp, dan siap dipakai untuk promosi maupun closing.",
     intro:
       "Halaman ini cocok untuk bisnis yang belum butuh fitur checkout penuh, tetapi sudah butuh website yang rapi, cepat, dan enak dibagikan ke calon pelanggan.",
+    badge: "Kredibilitas & Presentasi",
+    accent: "#D4AF37",
+    accentSoft: "rgba(212,175,55,0.16)",
+    statLabel: "Fokus utama",
+    statValue: "Trust lebih cepat",
     idealFor: [
       "UMKM jasa yang ingin terlihat lebih profesional",
       "Brand lokal yang ingin punya profil bisnis resmi",
@@ -45,11 +35,13 @@ export const servicePages: ServicePage[] = [
     faqs: [
       {
         question: "Apakah website jenis ini cocok untuk bisnis yang baru mulai?",
-        answer: "Cocok. Ini justru pilihan paling efisien untuk UMKM yang ingin terlihat rapi tanpa langsung masuk ke sistem toko online penuh.",
+        answer:
+          "Cocok. Ini justru pilihan paling efisien untuk UMKM yang ingin terlihat rapi tanpa langsung masuk ke sistem toko online penuh.",
       },
       {
         question: "Apakah saya bisa mengubah isi website setelah live?",
-        answer: "Bisa. Website sudah dilengkapi area konten yang bisa disesuaikan dan tetap bisa dibantu tim bila Anda ingin revisi besar.",
+        answer:
+          "Bisa. Website sudah dilengkapi area konten yang bisa disesuaikan dan tetap bisa dibantu tim bila Anda ingin revisi besar.",
       },
     ],
   },
@@ -57,11 +49,16 @@ export const servicePages: ServicePage[] = [
     slug: "toko-online",
     name: "Jasa Toko Online UMKM",
     shortName: "Toko Online",
-    headline: "Toko online yang membantu UMKM menerima pesanan lebih rapi dan lebih siap berkembang.",
+    headline: "Terima pesanan lebih rapi lewat toko online yang siap bantu bisnis berkembang.",
     description:
       "Solusi pembuatan toko online UMKM dengan katalog produk, alur pemesanan yang jelas, dan fondasi yang siap dipakai untuk promosi digital.",
     intro:
       "Halaman ini cocok untuk bisnis produk yang sudah mulai rutin menerima order dan butuh sistem yang lebih serius daripada sekadar chat manual.",
+    badge: "Order & Katalog",
+    accent: "#D4AF37",
+    accentSoft: "rgba(212,175,55,0.16)",
+    statLabel: "Fokus utama",
+    statValue: "Order lebih rapi",
     idealFor: [
       "UMKM produk yang ingin menampilkan katalog lebih rapi",
       "Bisnis makanan, fashion, kerajinan, dan retail lokal",
@@ -81,11 +78,13 @@ export const servicePages: ServicePage[] = [
     faqs: [
       {
         question: "Apakah harus langsung memakai payment gateway?",
-        answer: "Tidak harus. Alur order bisa disesuaikan dulu dengan proses bisnis Anda, lalu ditingkatkan bertahap saat volume transaksi sudah cocok.",
+        answer:
+          "Tidak harus. Alur order bisa disesuaikan dulu dengan proses bisnis Anda, lalu ditingkatkan bertahap saat volume transaksi sudah cocok.",
       },
       {
         question: "Kalau produk saya banyak, apa tetap bisa dipakai?",
-        answer: "Bisa. Struktur katalog bisa dirancang sejak awal supaya tetap enak dipakai saat jumlah produk bertambah.",
+        answer:
+          "Bisa. Struktur katalog bisa dirancang sejak awal supaya tetap enak dipakai saat jumlah produk bertambah.",
       },
     ],
   },
@@ -93,11 +92,16 @@ export const servicePages: ServicePage[] = [
     slug: "kelola-sosmed",
     name: "Jasa Kelola Sosmed UMKM",
     shortName: "Kelola Sosmed",
-    headline: "Kelola sosial media UMKM dengan arah konten yang lebih rapi dan lebih dekat ke penjualan.",
+    headline: "Ubah sosial media jadi lebih konsisten dan lebih dekat ke penjualan.",
     description:
       "Layanan kelola sosial media UMKM untuk membantu bisnis tampil konsisten, punya arah konten, dan lebih siap mengubah audiens menjadi calon pembeli.",
     intro:
       "Halaman ini cocok untuk bisnis yang sudah aktif posting, tetapi hasilnya belum konsisten karena strategi, visual, dan ritme kontennya belum tertata.",
+    badge: "Konten & Konsistensi",
+    accent: "#D4AF37",
+    accentSoft: "rgba(212,175,55,0.16)",
+    statLabel: "Fokus utama",
+    statValue: "Konten lebih terarah",
     idealFor: [
       "UMKM yang ingin kontennya lebih konsisten",
       "Owner yang tidak punya waktu mengurus caption, ide, dan desain rutin",
@@ -117,18 +121,53 @@ export const servicePages: ServicePage[] = [
     faqs: [
       {
         question: "Apakah layanan ini harus dibarengi dengan website?",
-        answer: "Tidak harus, tetapi hasilnya biasanya lebih kuat kalau sosial media punya landing page tujuan yang jelas seperti website bisnis atau toko online.",
+        answer:
+          "Tidak harus, tetapi hasilnya biasanya lebih kuat kalau sosial media punya landing page tujuan yang jelas seperti website bisnis atau toko online.",
       },
       {
         question: "Apakah bisa untuk bisnis lokal yang audiensnya masih kecil?",
-        answer: "Bisa. Justru bisnis lokal sering paling terbantu saat kontennya mulai dibangun dengan struktur dan tujuan yang jelas.",
+        answer:
+          "Bisa. Justru bisnis lokal sering paling terbantu saat kontennya mulai dibangun dengan struktur dan tujuan yang jelas.",
       },
     ],
   },
 ];
 
-export function getServicePage(slug: string) {
-  return servicePages.find((service) => service.slug === slug);
+function normalizeFaqs(faqs: FaqItem[] | undefined, fallbackFaqs: FaqItem[]) {
+  return Array.isArray(faqs) && faqs.length > 0 ? faqs : fallbackFaqs;
+}
+
+function normalizeServicePage(service: Partial<ServicePage>, fallback: ServicePage): ServicePage {
+  return {
+    ...fallback,
+    ...service,
+    idealFor: Array.isArray(service.idealFor) && service.idealFor.length > 0 ? service.idealFor : fallback.idealFor,
+    deliverables:
+      Array.isArray(service.deliverables) && service.deliverables.length > 0
+        ? service.deliverables
+        : fallback.deliverables,
+    outcomes: Array.isArray(service.outcomes) && service.outcomes.length > 0 ? service.outcomes : fallback.outcomes,
+    faqs: normalizeFaqs(service.faqs, fallback.faqs),
+  };
+}
+
+export function normalizeServicePages(services?: Partial<ServicePage>[]): ServicePage[] {
+  if (!Array.isArray(services) || services.length === 0) {
+    return defaultServicePages;
+  }
+
+  return services.map((service, index) => {
+    const fallback =
+      defaultServicePages.find((defaultService) => defaultService.slug === service.slug) ??
+      defaultServicePages[index] ??
+      defaultServicePages[0];
+
+    return normalizeServicePage(service, fallback);
+  });
+}
+
+export function findServicePage(services: ServicePage[], slug: string) {
+  return services.find((service) => service.slug === slug);
 }
 
 export function getServiceMetadata(service: ServicePage) {

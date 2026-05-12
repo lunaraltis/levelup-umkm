@@ -13,6 +13,7 @@ import type {
   LeadStatus,
   PortfolioItem,
   PricingPlan,
+  ServicePage,
   TestimonialItem,
   TrustContent,
 } from "@/lib/content-types";
@@ -22,6 +23,7 @@ type AdminTab =
   | "hero"
   | "trust"
   | "portfolio"
+  | "services"
   | "contact"
   | "faqs"
   | "testimonials"
@@ -50,6 +52,7 @@ const emptyContent: ContentData = {
     items: [],
     guarantees: [],
   },
+  services: [],
   pricing: [],
   leads: [],
   contact: {
@@ -251,6 +254,53 @@ export default function AdminEditor() {
       ...currentData,
       portfolio: currentData.portfolio.map((item, currentIndex) =>
         currentIndex === index ? { ...item, [field]: value } : item,
+      ),
+    }));
+  };
+
+  const updateService = (
+    index: number,
+    field: keyof Omit<ServicePage, "idealFor" | "deliverables" | "outcomes" | "faqs">,
+    value: string,
+  ) => {
+    setData((currentData) => ({
+      ...currentData,
+      services: currentData.services.map((service, currentIndex) =>
+        currentIndex === index ? { ...service, [field]: value } : service,
+      ),
+    }));
+  };
+
+  const updateServiceList = (
+    index: number,
+    field: keyof Pick<ServicePage, "idealFor" | "deliverables" | "outcomes">,
+    value: string,
+  ) => {
+    const items = value
+      .split("\n")
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    setData((currentData) => ({
+      ...currentData,
+      services: currentData.services.map((service, currentIndex) =>
+        currentIndex === index ? { ...service, [field]: items } : service,
+      ),
+    }));
+  };
+
+  const updateServiceFaq = (serviceIndex: number, faqIndex: number, field: keyof FaqItem, value: string) => {
+    setData((currentData) => ({
+      ...currentData,
+      services: currentData.services.map((service, currentIndex) =>
+        currentIndex === serviceIndex
+          ? {
+              ...service,
+              faqs: service.faqs.map((faq, currentFaqIndex) =>
+                currentFaqIndex === faqIndex ? { ...faq, [field]: value } : faq,
+              ),
+            }
+          : service,
       ),
     }));
   };
@@ -470,6 +520,7 @@ export default function AdminEditor() {
               { id: "hero" as const, label: "Hero" },
               { id: "trust" as const, label: "Trust & Garansi" },
               { id: "portfolio" as const, label: "Portfolio" },
+              { id: "services" as const, label: "Halaman Layanan" },
               { id: "contact" as const, label: "Kontak & CTA" },
               { id: "faqs" as const, label: "FAQ" },
               { id: "testimonials" as const, label: "Testimoni" },
@@ -513,6 +564,8 @@ export default function AdminEditor() {
               <h2 style={{ fontSize: "1.5rem", marginBottom: "2rem" }}>
                 {activeTab === "leads"
                   ? "Lead Masuk"
+                  : activeTab === "services"
+                    ? "Halaman Layanan"
                   : activeTab === "contact"
                     ? "Kontak & CTA"
                     : activeTab === "trust"
@@ -754,6 +807,113 @@ export default function AdminEditor() {
                 </div>
               )}
 
+              {activeTab === "services" && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+                  {data.services.map((service, index) => (
+                    <div
+                      key={service.slug || `service-${index}`}
+                      style={{
+                        padding: "1.5rem",
+                        borderRadius: "var(--radius-lg)",
+                        backgroundColor: "#fafafa",
+                        border: "1px solid var(--color-border)",
+                      }}
+                    >
+                      <h3 style={{ fontSize: "1.125rem", marginBottom: "1rem" }}>
+                        Layanan #{index + 1}: {service.name}
+                      </h3>
+
+                      <div className="admin-service-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1rem" }}>
+                        <div>
+                          <label className="admin-label">Slug URL</label>
+                          <input className="admin-input" type="text" value={service.slug} onChange={(event) => updateService(index, "slug", event.target.value)} />
+                        </div>
+                        <div>
+                          <label className="admin-label">Nama Layanan</label>
+                          <input className="admin-input" type="text" value={service.name} onChange={(event) => updateService(index, "name", event.target.value)} />
+                        </div>
+                      </div>
+
+                      <div className="admin-service-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1rem" }}>
+                        <div>
+                          <label className="admin-label">Nama Pendek</label>
+                          <input className="admin-input" type="text" value={service.shortName} onChange={(event) => updateService(index, "shortName", event.target.value)} />
+                        </div>
+                        <div>
+                          <label className="admin-label">Badge</label>
+                          <input className="admin-input" type="text" value={service.badge} onChange={(event) => updateService(index, "badge", event.target.value)} />
+                        </div>
+                      </div>
+
+                      <div style={{ marginBottom: "1rem" }}>
+                        <label className="admin-label">Headline</label>
+                        <textarea className="admin-input" rows={3} value={service.headline} onChange={(event) => updateService(index, "headline", event.target.value)} />
+                      </div>
+
+                      <div style={{ marginBottom: "1rem" }}>
+                        <label className="admin-label">Deskripsi Kartu Layanan</label>
+                        <textarea className="admin-input" rows={3} value={service.description} onChange={(event) => updateService(index, "description", event.target.value)} />
+                      </div>
+
+                      <div style={{ marginBottom: "1rem" }}>
+                        <label className="admin-label">Intro Halaman Detail</label>
+                        <textarea className="admin-input" rows={4} value={service.intro} onChange={(event) => updateService(index, "intro", event.target.value)} />
+                      </div>
+
+                      <div className="admin-service-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "1rem", marginBottom: "1rem" }}>
+                        <div>
+                          <label className="admin-label">Label Stat</label>
+                          <input className="admin-input" type="text" value={service.statLabel} onChange={(event) => updateService(index, "statLabel", event.target.value)} />
+                        </div>
+                        <div>
+                          <label className="admin-label">Nilai Stat</label>
+                          <input className="admin-input" type="text" value={service.statValue} onChange={(event) => updateService(index, "statValue", event.target.value)} />
+                        </div>
+                        <div>
+                          <label className="admin-label">Accent</label>
+                          <input className="admin-input" type="text" value={service.accent} onChange={(event) => updateService(index, "accent", event.target.value)} />
+                        </div>
+                        <div>
+                          <label className="admin-label">Accent Soft</label>
+                          <input className="admin-input" type="text" value={service.accentSoft} onChange={(event) => updateService(index, "accentSoft", event.target.value)} />
+                        </div>
+                      </div>
+
+                      <div className="admin-service-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem", marginBottom: "1rem" }}>
+                        <div>
+                          <label className="admin-label">Layanan ini cocok untuk (1 baris per poin)</label>
+                          <textarea className="admin-input" rows={6} value={service.idealFor.join("\n")} onChange={(event) => updateServiceList(index, "idealFor", event.target.value)} />
+                        </div>
+                        <div>
+                          <label className="admin-label">Yang akan disiapkan (1 baris per poin)</label>
+                          <textarea className="admin-input" rows={6} value={service.deliverables.join("\n")} onChange={(event) => updateServiceList(index, "deliverables", event.target.value)} />
+                        </div>
+                        <div>
+                          <label className="admin-label">Hasil yang dicari owner (1 baris per poin)</label>
+                          <textarea className="admin-input" rows={6} value={service.outcomes.join("\n")} onChange={(event) => updateServiceList(index, "outcomes", event.target.value)} />
+                        </div>
+                      </div>
+
+                      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                        <h4 style={{ fontSize: "1rem", margin: 0 }}>FAQ Layanan</h4>
+                        {service.faqs.map((faq, faqIndex) => (
+                          <div key={`${service.slug}-faq-${faqIndex}`} style={{ padding: "1rem", borderRadius: "var(--radius-md)", backgroundColor: "white", border: "1px solid var(--color-border)" }}>
+                            <div style={{ marginBottom: "0.75rem" }}>
+                              <label className="admin-label">Pertanyaan</label>
+                              <input className="admin-input" type="text" value={faq.question} onChange={(event) => updateServiceFaq(index, faqIndex, "question", event.target.value)} />
+                            </div>
+                            <div>
+                              <label className="admin-label">Jawaban</label>
+                              <textarea className="admin-input" rows={3} value={faq.answer} onChange={(event) => updateServiceFaq(index, faqIndex, "answer", event.target.value)} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {activeTab === "contact" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                   <div className="admin-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
@@ -923,6 +1083,7 @@ export default function AdminEditor() {
           }
 
           .admin-two-col,
+          .admin-service-grid,
           .admin-lead-grid,
           .admin-pricing-grid {
             grid-template-columns: 1fr !important;

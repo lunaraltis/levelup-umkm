@@ -46,7 +46,7 @@ export default function Navbar() {
         <div className="desktop-nav">
           {[
             { href: '#about', label: 'Tentang' },
-            { href: '#features', label: 'Layanan' },
+            { href: '/layanan', label: 'Layanan' },
             { href: '#pricing', label: 'Harga' },
             { href: '#contact', label: 'Kontak' }
           ].map(link => (
@@ -80,7 +80,7 @@ export default function Navbar() {
           borderTop: '1px solid var(--color-border)'
         }}>
           <Link href="#about" onClick={() => { trackEvent("nav_click", { label: "Tentang", target: "#about" }); setIsMobileMenuOpen(false); }} style={{ padding: '0.5rem 0', fontWeight: 500 }}>Tentang</Link>
-          <Link href="#features" onClick={() => { trackEvent("nav_click", { label: "Layanan", target: "#features" }); setIsMobileMenuOpen(false); }} style={{ padding: '0.5rem 0', fontWeight: 500 }}>Layanan</Link>
+          <Link href="/layanan" onClick={() => { trackEvent("nav_click", { label: "Layanan", target: "/layanan" }); setIsMobileMenuOpen(false); }} style={{ padding: '0.5rem 0', fontWeight: 500 }}>Layanan</Link>
           <Link href="#pricing" onClick={() => { trackEvent("nav_click", { label: "Harga", target: "#pricing" }); setIsMobileMenuOpen(false); }} style={{ padding: '0.5rem 0', fontWeight: 500 }}>Harga</Link>
           <Link href="#contact" onClick={() => { trackEvent("nav_click", { label: "Kontak", target: "#contact" }); setIsMobileMenuOpen(false); }} style={{ padding: '0.5rem 0', fontWeight: 500 }}>Kontak</Link>
           <hr style={{ borderColor: 'var(--color-border)' }} />

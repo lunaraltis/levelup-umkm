@@ -5,8 +5,10 @@ import type {
   ContentData,
   HeroContent,
   PortfolioItem,
+  ServicePage,
   TrustContent,
 } from "./content-types";
+import { defaultServicePages, normalizeServicePages } from "./services";
 
 // Kredensial ini HANYA berjalan di server (sangat aman)
 const supabaseUrl = process.env.SUPABASE_URL || "";
@@ -103,6 +105,8 @@ const defaultTrust: TrustContent = {
   ],
 };
 
+const defaultServices: ServicePage[] = defaultServicePages;
+
 function normalizeContent(data: Partial<ContentData>): ContentData {
   return {
     hero: {
@@ -121,6 +125,7 @@ function normalizeContent(data: Partial<ContentData>): ContentData {
         ? data.trust.guarantees
         : defaultTrust.guarantees,
     },
+    services: normalizeServicePages(data.services) ?? defaultServices,
     pricing: Array.isArray(data.pricing) ? data.pricing : [],
     leads: Array.isArray(data.leads)
       ? data.leads.map((lead) => ({ ...lead, status: lead.status ?? "new" }))

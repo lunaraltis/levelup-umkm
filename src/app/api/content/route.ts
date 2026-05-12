@@ -27,14 +27,18 @@ export async function POST(request: Request) {
   try {
     const data = (await request.json()) as Partial<ContentData>;
     const currentContent = await getContent();
-    const success = await saveContent({
+    const nextContent: ContentData = {
       ...currentContent,
       ...data,
       leads: currentContent.leads,
-    });
+    };
+    const success = await saveContent(nextContent);
     
     if (success) {
       revalidatePath("/");
+      revalidatePath("/layanan");
+      revalidatePath("/layanan/[slug]", "page");
+      revalidatePath("/sitemap.xml");
       return NextResponse.json({ success: true, message: "Konten berhasil disimpan!" });
     } else {
       return NextResponse.json(

@@ -81,12 +81,31 @@ export interface TrustContent {
   guarantees: string[];
 }
 
+export interface ServicePage {
+  slug: string;
+  name: string;
+  shortName: string;
+  headline: string;
+  description: string;
+  intro: string;
+  badge: string;
+  accent: string;
+  accentSoft: string;
+  statLabel: string;
+  statValue: string;
+  idealFor: string[];
+  deliverables: string[];
+  outcomes: string[];
+  faqs: FaqItem[];
+}
+
 export interface ContentData {
   hero: HeroContent;
   faqs: FaqItem[];
   testimonials: TestimonialItem[];
   portfolio: PortfolioItem[];
   trust: TrustContent;
+  services: ServicePage[];
   pricing: PricingPlan[];
   leads: LeadItem[];
   contact: ContactSettings;

@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
+import { getContent } from "@/lib/cms";
 import { absoluteUrl } from "@/lib/site";
-import { servicePages } from "@/lib/services";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const content = await getContent();
   const lastModified = new Date();
 
   return [
@@ -34,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
-    ...servicePages.map((service) => ({
+    ...content.services.map((service) => ({
       url: absoluteUrl(`/layanan/${service.slug}`),
       lastModified,
       changeFrequency: "weekly" as const,

@@ -9,7 +9,6 @@ import Pricing from "@/components/Pricing";
 import Testimonial from "@/components/Testimonial";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
-import StickyWhatsApp from "@/components/StickyWhatsApp";
 import TrustSection from "@/components/TrustSection";
 import { getContent } from "@/lib/cms";
 import { absoluteUrl, siteUrl } from "@/lib/site";
@@ -118,7 +117,6 @@ export default async function Home() {
         <FAQ initialData={content.faqs} />
         <Contact initialData={content.contact} />
       </main>
-      <StickyWhatsApp contact={content.contact} />
       <Footer />
     </>
   );
