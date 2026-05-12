@@ -27,9 +27,9 @@ export default function Footer() {
           <div>
             <h4 style={{ color: 'white', fontSize: '0.9375rem', fontWeight: 600, marginBottom: '1.25rem', fontFamily: 'var(--font-body)' }}>Layanan</h4>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <li><Link href="#pricing" style={{ fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = 'white'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}>Website Toko Online</Link></li>
-              <li><Link href="#pricing" style={{ fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = 'white'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}>Manajemen Sosmed</Link></li>
-              <li><Link href="#pricing" style={{ fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = 'white'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}>Re-Branding Visual</Link></li>
+              <li><Link href="/layanan/website-umkm" style={{ fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = 'white'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}>Website UMKM</Link></li>
+              <li><Link href="/layanan/toko-online" style={{ fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = 'white'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}>Toko Online</Link></li>
+              <li><Link href="/layanan/kelola-sosmed" style={{ fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = 'white'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}>Kelola Sosmed</Link></li>
             </ul>
           </div>
 
