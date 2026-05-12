@@ -1,22 +1,94 @@
 "use client";
 import { useState } from "react";
-import { Send, MapPin, Mail, Phone, Clock } from "lucide-react";
+import { CheckCircle2, Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 import Link from "next/link";
 import AnimateOnScroll from "./AnimateOnScroll";
+import { trackEvent } from "@/lib/analytics";
+
+type SubmitStatus = "idle" | "saving" | "success" | "warning" | "error";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '', phone: '', business: '', service: '', message: ''
   });
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+  const [statusMessage, setStatusMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const openWhatsApp = () => {
+    const text = [
+      "Halo Level Up UMKM!",
+      "",
+      "Saya tertarik untuk mendigitalisasi bisnis saya. Berikut data saya:",
+      "",
+      `Nama: ${formData.name}`,
+      `WhatsApp: ${formData.phone}`,
+      `Bisnis/Toko: ${formData.business}`,
+      `Layanan: ${formData.service}`,
+      "",
+      "Pesan:",
+      formData.message,
+      "",
+      "Mohon informasi lebih lanjut. Terima kasih!",
+    ].join("\n");
+
+    trackEvent("whatsapp_click", {
+      source: "contact_form",
+      service: formData.service,
+    });
+    window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, "_blank");
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.service) {
-      alert("Mohon isi Nama Lengkap dan Layanan yang Diminati!");
+    if (!formData.name || !formData.phone || !formData.service) {
+      setSubmitStatus("error");
+      setStatusMessage("Mohon isi Nama Lengkap, WhatsApp, dan Layanan yang Diminati.");
       return;
     }
-    const text = `Halo Level Up UMKM! 🚀%0A%0ASaya tertarik untuk mendigitalisasi bisnis saya. Berikut data saya:%0A%0A*Nama:* ${formData.name}%0A*WhatsApp:* ${formData.phone}%0A*Bisnis/Toko:* ${formData.business}%0A*Layanan:* ${formData.service}%0A%0A*Pesan:*%0A${formData.message}%0A%0AMohon informasi lebih lanjut. Terima kasih!`;
-    window.open(`https://wa.me/6281234567890?text=${text}`, '_blank');
+
+    setSubmitStatus("saving");
+    setStatusMessage("Menyimpan data konsultasi...");
+    trackEvent("lead_form_submit", {
+      service: formData.service,
+      has_business: Boolean(formData.business),
+      has_message: Boolean(formData.message),
+    });
+
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          pageUrl: window.location.href,
+        }),
+      });
+      const result = (await response.json()) as { message?: string };
+
+      if (!response.ok) {
+        if (response.status >= 500) {
+          setSubmitStatus("warning");
+          setStatusMessage("WhatsApp tetap dibuka, tapi data belum tersimpan otomatis.");
+          openWhatsApp();
+          return;
+        }
+
+        setSubmitStatus("error");
+        setStatusMessage(result.message ?? "Data belum lengkap.");
+        return;
+      }
+
+      setSubmitStatus("success");
+      setStatusMessage("Data tersimpan. WhatsApp akan terbuka untuk melanjutkan chat.");
+      trackEvent("lead_form_saved", {
+        service: formData.service,
+      });
+      openWhatsApp();
+    } catch {
+      setSubmitStatus("warning");
+      setStatusMessage("WhatsApp tetap dibuka, tapi data belum tersimpan otomatis.");
+      openWhatsApp();
+    }
   };
 
   return (
@@ -44,7 +116,7 @@ export default function Contact() {
                 <Link href="#form" className="btn btn-accent" style={{ padding: '1rem 2rem' }}>
                   Hubungi Kami Sekarang
                 </Link>
-                <Link href="https://wa.me/6281234567890" target="_blank" className="btn btn-white" style={{ padding: '1rem 2rem' }}>
+                <Link href="https://wa.me/6281234567890" target="_blank" onClick={() => trackEvent("whatsapp_click", { source: "contact_banner" })} className="btn btn-white" style={{ padding: '1rem 2rem' }}>
                   Chat via WhatsApp
                 </Link>
               </div>
@@ -90,8 +162,28 @@ export default function Contact() {
                   <label htmlFor="message">Pesan / Pertanyaan</label>
                   <textarea id="message" rows={4} value={formData.message} onChange={e=>setFormData({...formData, message: e.target.value})} placeholder="Ceritakan singkat tentang bisnis Anda..."></textarea>
                 </div>
-                <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '1rem', borderRadius: 'var(--radius-full)' }}>
-                  Kirim via WhatsApp <Send size={18} />
+                {submitStatus !== "idle" && (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.625rem",
+                      color:
+                        submitStatus === "success"
+                          ? "#15803d"
+                          : submitStatus === "error"
+                            ? "#b91c1c"
+                            : "#a16207",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {submitStatus === "success" ? <CheckCircle2 size={18} /> : <Clock size={18} />}
+                    {statusMessage}
+                  </div>
+                )}
+                <button type="submit" disabled={submitStatus === "saving"} className="btn btn-primary" style={{ width: '100%', padding: '1rem', borderRadius: 'var(--radius-full)' }}>
+                  {submitStatus === "saving" ? "Menyimpan..." : "Kirim via WhatsApp"} <Send size={18} />
                 </button>
               </form>
             </div>

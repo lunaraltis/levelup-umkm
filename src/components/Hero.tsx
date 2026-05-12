@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import AnimateOnScroll from "./AnimateOnScroll";
 import CountUp from "./CountUp";
 import { useState, useEffect } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 const slides = [
   { src: "/images/hero-slide-1.png", alt: "Pengusaha UMKM digital" },
@@ -76,10 +77,10 @@ export default function Hero() {
 
         <AnimateOnScroll delay={0.7}>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="#pricing" className="btn btn-primary" style={{ padding: '1rem 2rem' }}>
+            <Link href="#pricing" onClick={() => trackEvent("cta_click", { source: "hero", target: "pricing" })} className="btn btn-primary" style={{ padding: '1rem 2rem' }}>
               Lihat Harga Paket <ArrowRight size={18} />
             </Link>
-            <Link href="#about" className="btn btn-outline" style={{ padding: '1rem 2rem' }}>
+            <Link href="#about" onClick={() => trackEvent("cta_click", { source: "hero", target: "about" })} className="btn btn-outline" style={{ padding: '1rem 2rem' }}>
               Pelajari Lebih Lanjut
             </Link>
           </div>

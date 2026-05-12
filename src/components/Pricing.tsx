@@ -3,8 +3,10 @@ import { Check } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import AnimateOnScroll from "./AnimateOnScroll";
+import type { PricingPlan } from "@/lib/content-types";
+import { trackEvent } from "@/lib/analytics";
 
-export default function Pricing({ initialData }: { initialData: any[] }) {
+export default function Pricing({ initialData }: { initialData: PricingPlan[] }) {
   const [activePlan, setActivePlan] = useState(1);
   const plans = initialData && initialData.length > 0 ? initialData : [];
 
@@ -26,7 +28,13 @@ export default function Pricing({ initialData }: { initialData: any[] }) {
             const isActive = activePlan === index;
             return (
               <AnimateOnScroll key={index} delay={index * 0.18}>
-                <div onClick={() => setActivePlan(index)} style={{
+                <div onClick={() => {
+                  setActivePlan(index);
+                  trackEvent("pricing_plan_select", {
+                    plan_name: plan.name,
+                    plan_index: index,
+                  });
+                }} style={{
                   backgroundColor: isActive ? 'var(--color-brand)' : 'white',
                   color: isActive ? 'white' : 'var(--color-text)',
                   borderRadius: 'var(--radius-xl)', padding: '2.5rem 2rem',
@@ -82,7 +90,7 @@ export default function Pricing({ initialData }: { initialData: any[] }) {
                       </li>
                     ))}
                   </ul>
-                  <Link href="#contact" className="btn w-full" style={{ 
+                  <Link href="#contact" onClick={() => trackEvent("cta_click", { source: "pricing", target: "contact", plan_name: plan.name })} className="btn w-full" style={{ 
                     backgroundColor: isActive ? 'var(--color-accent)' : 'transparent',
                     color: isActive ? 'var(--color-brand)' : 'var(--color-brand)',
                     border: isActive ? '1.5px solid transparent' : '1.5px solid var(--color-border)',

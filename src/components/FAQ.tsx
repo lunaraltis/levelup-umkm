@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import AnimateOnScroll from "./AnimateOnScroll";
+import type { FaqItem } from "@/lib/content-types";
 
-export default function FAQ({ initialData }: { initialData: any[] }) {
+export default function FAQ({ initialData }: { initialData: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const faqs = initialData && initialData.length > 0 ? initialData : [];
 

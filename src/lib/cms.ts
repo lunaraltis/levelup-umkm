@@ -1,42 +1,46 @@
-import { createClient } from '@supabase/supabase-js';
-import fallbackData from '../data/content.json';
+import { createClient } from "@supabase/supabase-js";
+import fallbackData from "../data/content.json";
+import type { ContentData } from "./content-types";
 
 // Kredensial ini HANYA berjalan di server (sangat aman)
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_ANON_KEY || '';
+const supabaseUrl = process.env.SUPABASE_URL || "";
+const supabaseKey = process.env.SUPABASE_ANON_KEY || "";
 
 // Inisialisasi klien Supabase (hanya jika URL & Key tersedia)
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-export interface ContentData {
-  faqs: any[];
-  testimonials: any[];
-  pricing: any[];
+function normalizeContent(data: Partial<ContentData>): ContentData {
+  return {
+    faqs: Array.isArray(data.faqs) ? data.faqs : [],
+    testimonials: Array.isArray(data.testimonials) ? data.testimonials : [],
+    pricing: Array.isArray(data.pricing) ? data.pricing : [],
+    leads: Array.isArray(data.leads) ? data.leads : [],
+  };
 }
 
 export async function getContent(): Promise<ContentData> {
   // Jika belum ada kredensial, gunakan data lokal (sebagai cadangan/fallback)
   if (!supabase) {
     console.warn("Supabase belum dikonfigurasi. Menggunakan data lokal.");
-    return fallbackData as ContentData;
+    return normalizeContent(fallbackData as Partial<ContentData>);
   }
 
   try {
     const { data, error } = await supabase
-      .from('cms_content')
-      .select('content')
-      .eq('id', 1)
+      .from("cms_content")
+      .select("content")
+      .eq("id", 1)
       .single();
 
     if (error || !data) {
       console.warn("Data tidak ditemukan di Supabase, menggunakan data lokal.");
-      return fallbackData as ContentData;
+      return normalizeContent(fallbackData as Partial<ContentData>);
     }
 
-    return data.content as ContentData;
+    return normalizeContent(data.content as Partial<ContentData>);
   } catch (error) {
     console.error("Gagal membaca dari Supabase:", error);
-    return fallbackData as ContentData;
+    return normalizeContent(fallbackData as Partial<ContentData>);
   }
 }
 
@@ -49,7 +53,7 @@ export async function saveContent(data: ContentData): Promise<boolean> {
   try {
     // Upsert akan melakukan Insert jika id 1 belum ada, atau Update jika sudah ada
     const { error } = await supabase
-      .from('cms_content')
+      .from("cms_content")
       .upsert({ id: 1, content: data });
 
     if (error) {

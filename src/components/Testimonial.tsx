@@ -1,8 +1,9 @@
 "use client";
 import { Star, Quote } from "lucide-react";
 import AnimateOnScroll from "./AnimateOnScroll";
+import type { TestimonialItem } from "@/lib/content-types";
 
-export default function Testimonial({ initialData }: { initialData: any[] }) {
+export default function Testimonial({ initialData }: { initialData: TestimonialItem[] }) {
   const testimonials = initialData && initialData.length > 0 ? initialData : [];
   return (
     <section className="section" style={{ backgroundColor: 'var(--color-bg)' }}>
