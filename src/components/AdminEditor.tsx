@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ExternalLink, LogOut, Save, Trash2 } from "lucide-react";
 import Link from "next/link";
 import type {
+  ContactSettings,
   ContentData,
   FaqItem,
   LeadItem,
@@ -12,7 +13,7 @@ import type {
   TestimonialItem,
 } from "@/lib/content-types";
 
-type AdminTab = "leads" | "faqs" | "testimonials" | "pricing";
+type AdminTab = "leads" | "contact" | "faqs" | "testimonials" | "pricing";
 type SaveStatus = "idle" | "saving" | "success" | "error";
 
 const emptyContent: ContentData = {
@@ -20,6 +21,18 @@ const emptyContent: ContentData = {
   testimonials: [],
   pricing: [],
   leads: [],
+  contact: {
+    whatsappNumber: "",
+    whatsappDisplay: "",
+    email: "",
+    location: "",
+    businessHours: "",
+    ctaTitle: "",
+    ctaHighlight: "",
+    ctaDescription: "",
+    formTitle: "",
+    formDescription: "",
+  },
 };
 
 function formatDate(value: string) {
@@ -165,6 +178,16 @@ export default function AdminEditor() {
     }));
   };
 
+  const updateContact = (field: keyof ContactSettings, value: string) => {
+    setData((currentData) => ({
+      ...currentData,
+      contact: {
+        ...currentData.contact,
+        [field]: value,
+      },
+    }));
+  };
+
   const deleteLead = async (id: string) => {
     const response = await fetch(`/api/leads/${id}`, { method: "DELETE" });
 
@@ -213,6 +236,7 @@ export default function AdminEditor() {
           <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
             {[
               { id: "leads" as const, label: "Lead Masuk" },
+              { id: "contact" as const, label: "Kontak & CTA" },
               { id: "faqs" as const, label: "FAQ (Tanya Jawab)" },
               { id: "testimonials" as const, label: "Testimoni" },
               { id: "pricing" as const, label: "Paket Harga" },
@@ -246,7 +270,7 @@ export default function AdminEditor() {
           ) : (
             <div>
               <h2 style={{ fontSize: "1.5rem", marginBottom: "2rem", textTransform: "capitalize" }}>
-                {activeTab === "leads" ? "Lead Masuk" : `Edit ${activeTab}`}
+                {activeTab === "leads" ? "Lead Masuk" : activeTab === "contact" ? "Kontak & CTA" : `Edit ${activeTab}`}
               </h2>
 
               {activeTab === "leads" && (
@@ -279,6 +303,63 @@ export default function AdminEditor() {
                       </div>
                     ))
                   )}
+                </div>
+              )}
+
+              {activeTab === "contact" && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+                  <div className="admin-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                    <div>
+                      <label style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--color-text-muted)" }}>Nomor WhatsApp (format wa.me)</label>
+                      <input type="text" value={data.contact.whatsappNumber} onChange={(event) => updateContact("whatsappNumber", event.target.value)} placeholder="6281234567890" style={{ width: "100%", padding: "0.75rem", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }} />
+                    </div>
+                    <div>
+                      <label style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--color-text-muted)" }}>Nomor WhatsApp Tampilan</label>
+                      <input type="text" value={data.contact.whatsappDisplay} onChange={(event) => updateContact("whatsappDisplay", event.target.value)} placeholder="+62 812-3456-7890" style={{ width: "100%", padding: "0.75rem", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }} />
+                    </div>
+                  </div>
+
+                  <div className="admin-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                    <div>
+                      <label style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--color-text-muted)" }}>Email</label>
+                      <input type="email" value={data.contact.email} onChange={(event) => updateContact("email", event.target.value)} style={{ width: "100%", padding: "0.75rem", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }} />
+                    </div>
+                    <div>
+                      <label style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--color-text-muted)" }}>Lokasi</label>
+                      <input type="text" value={data.contact.location} onChange={(event) => updateContact("location", event.target.value)} style={{ width: "100%", padding: "0.75rem", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--color-text-muted)" }}>Jam Operasional</label>
+                    <input type="text" value={data.contact.businessHours} onChange={(event) => updateContact("businessHours", event.target.value)} style={{ width: "100%", padding: "0.75rem", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }} />
+                  </div>
+
+                  <div style={{ padding: "1.5rem", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", backgroundColor: "#fafafa" }}>
+                    <h3 style={{ fontSize: "1rem", marginBottom: "1rem" }}>CTA Banner</h3>
+                    <div className="admin-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1rem" }}>
+                      <div>
+                        <label style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--color-text-muted)" }}>Judul CTA</label>
+                        <input type="text" value={data.contact.ctaTitle} onChange={(event) => updateContact("ctaTitle", event.target.value)} style={{ width: "100%", padding: "0.75rem", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }} />
+                      </div>
+                      <div>
+                        <label style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--color-text-muted)" }}>Highlight CTA</label>
+                        <input type="text" value={data.contact.ctaHighlight} onChange={(event) => updateContact("ctaHighlight", event.target.value)} style={{ width: "100%", padding: "0.75rem", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }} />
+                      </div>
+                    </div>
+                    <label style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--color-text-muted)" }}>Deskripsi CTA</label>
+                    <textarea value={data.contact.ctaDescription} onChange={(event) => updateContact("ctaDescription", event.target.value)} rows={3} style={{ width: "100%", padding: "0.75rem", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }} />
+                  </div>
+
+                  <div style={{ padding: "1.5rem", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", backgroundColor: "#fafafa" }}>
+                    <h3 style={{ fontSize: "1rem", marginBottom: "1rem" }}>Form Kontak</h3>
+                    <div style={{ marginBottom: "1rem" }}>
+                      <label style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--color-text-muted)" }}>Judul Form</label>
+                      <input type="text" value={data.contact.formTitle} onChange={(event) => updateContact("formTitle", event.target.value)} style={{ width: "100%", padding: "0.75rem", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }} />
+                    </div>
+                    <label style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--color-text-muted)" }}>Deskripsi Form</label>
+                    <textarea value={data.contact.formDescription} onChange={(event) => updateContact("formDescription", event.target.value)} rows={3} style={{ width: "100%", padding: "0.75rem", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }} />
+                  </div>
                 </div>
               )}
 

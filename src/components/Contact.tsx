@@ -4,10 +4,12 @@ import { CheckCircle2, Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 import Link from "next/link";
 import AnimateOnScroll from "./AnimateOnScroll";
 import { trackEvent } from "@/lib/analytics";
+import type { ContactSettings } from "@/lib/content-types";
 
 type SubmitStatus = "idle" | "saving" | "success" | "warning" | "error";
 
-export default function Contact() {
+export default function Contact({ initialData }: { initialData: ContactSettings }) {
+  const contact = initialData;
   const [formData, setFormData] = useState({
     name: '', phone: '', business: '', service: '', message: ''
   });
@@ -35,7 +37,7 @@ export default function Contact() {
       source: "contact_form",
       service: formData.service,
     });
-    window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, "_blank");
+    window.open(`https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(text)}`, "_blank");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -106,17 +108,17 @@ export default function Contact() {
             
             <div style={{ position: 'relative', zIndex: 1, maxWidth: '600px', margin: '0 auto' }}>
               <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'white', marginBottom: '1.25rem' }}>
-                Siap naik kelas{' '}
-                <span style={{ fontStyle: 'italic', color: 'var(--color-accent)' }}>bersama kami?</span>
+                {contact.ctaTitle}{' '}
+                <span style={{ fontStyle: 'italic', color: 'var(--color-accent)' }}>{contact.ctaHighlight}</span>
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.125rem', marginBottom: '2rem', lineHeight: 1.7 }}>
-                Konsultasikan kebutuhan digitalisasi bisnis Anda secara gratis. Tim kami siap membantu kapan saja.
+                {contact.ctaDescription}
               </p>
               <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <Link href="#form" className="btn btn-accent" style={{ padding: '1rem 2rem' }}>
                   Hubungi Kami Sekarang
                 </Link>
-                <Link href="https://wa.me/6281234567890" target="_blank" onClick={() => trackEvent("whatsapp_click", { source: "contact_banner" })} className="btn btn-white" style={{ padding: '1rem 2rem' }}>
+                <Link href={`https://wa.me/${contact.whatsappNumber}`} target="_blank" onClick={() => trackEvent("whatsapp_click", { source: "contact_banner" })} className="btn btn-white" style={{ padding: '1rem 2rem' }}>
                   Chat via WhatsApp
                 </Link>
               </div>
@@ -128,9 +130,9 @@ export default function Contact() {
         <div id="form" className="grid grid-cols-2" style={{ gap: '4rem', alignItems: 'center' }}>
           <AnimateOnScroll direction="right" duration={1.2}>
             <div>
-              <h3 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', marginBottom: '1rem' }}>Kirim Pesan</h3>
+              <h3 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', marginBottom: '1rem' }}>{contact.formTitle}</h3>
               <p style={{ color: 'var(--color-text-muted)', fontSize: '1.0625rem', marginBottom: '2.5rem', lineHeight: 1.7 }}>
-                Isi formulir di bawah ini dan kami akan segera melayani Anda via WhatsApp.
+                {contact.formDescription}
               </p>
               
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -193,10 +195,10 @@ export default function Contact() {
           <AnimateOnScroll direction="left" duration={1.2}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               {[
-                { icon: <MapPin size={20} strokeWidth={1.5} />, title: 'Lokasi', desc: 'Jakarta, Indonesia', iconBg: '#dbeafe', iconColor: '#2563eb' },
-                { icon: <Mail size={20} strokeWidth={1.5} />, title: 'Email', desc: 'halo@levelupumkm.id', iconBg: '#fef3c7', iconColor: '#d97706' },
-                { icon: <Phone size={20} strokeWidth={1.5} />, title: 'WhatsApp', desc: '+62 812-3456-7890', iconBg: '#dcfce7', iconColor: '#16a34a' },
-                { icon: <Clock size={20} strokeWidth={1.5} />, title: 'Jam Operasional', desc: 'Senin - Jumat, 09:00 - 18:00 WIB', iconBg: '#f3e8ff', iconColor: '#9333ea' },
+                { icon: <MapPin size={20} strokeWidth={1.5} />, title: 'Lokasi', desc: contact.location, iconBg: '#dbeafe', iconColor: '#2563eb' },
+                { icon: <Mail size={20} strokeWidth={1.5} />, title: 'Email', desc: contact.email, iconBg: '#fef3c7', iconColor: '#d97706' },
+                { icon: <Phone size={20} strokeWidth={1.5} />, title: 'WhatsApp', desc: contact.whatsappDisplay, iconBg: '#dcfce7', iconColor: '#16a34a' },
+                { icon: <Clock size={20} strokeWidth={1.5} />, title: 'Jam Operasional', desc: contact.businessHours, iconBg: '#f3e8ff', iconColor: '#9333ea' },
               ].map((item, i) => (
                 <div key={i} style={{
                   padding: '1.5rem', borderRadius: 'var(--radius-lg)',

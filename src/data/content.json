@@ -45,6 +45,18 @@
     }
   ],
   "leads": [],
+  "contact": {
+    "whatsappNumber": "6281234567890",
+    "whatsappDisplay": "+62 812-3456-7890",
+    "email": "halo@levelup-umkm.web.id",
+    "location": "Jakarta, Indonesia",
+    "businessHours": "Senin - Jumat, 09:00 - 18:00 WIB",
+    "ctaTitle": "Siap naik kelas",
+    "ctaHighlight": "bersama kami?",
+    "ctaDescription": "Konsultasikan kebutuhan digitalisasi bisnis Anda secara gratis. Tim kami siap membantu kapan saja.",
+    "formTitle": "Kirim Pesan",
+    "formDescription": "Isi formulir di bawah ini dan kami akan segera melayani Anda via WhatsApp."
+  },
   "pricing": [
     {
       "name": "Starter",

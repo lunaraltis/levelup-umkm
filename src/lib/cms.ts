@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import fallbackData from "../data/content.json";
-import type { ContentData } from "./content-types";
+import type { ContactSettings, ContentData } from "./content-types";
 
 // Kredensial ini HANYA berjalan di server (sangat aman)
 const supabaseUrl = process.env.SUPABASE_URL || "";
@@ -9,12 +9,30 @@ const supabaseKey = process.env.SUPABASE_ANON_KEY || "";
 // Inisialisasi klien Supabase (hanya jika URL & Key tersedia)
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
+const defaultContact: ContactSettings = {
+  whatsappNumber: "6281234567890",
+  whatsappDisplay: "+62 812-3456-7890",
+  email: "halo@levelup-umkm.web.id",
+  location: "Jakarta, Indonesia",
+  businessHours: "Senin - Jumat, 09:00 - 18:00 WIB",
+  ctaTitle: "Siap naik kelas",
+  ctaHighlight: "bersama kami?",
+  ctaDescription:
+    "Konsultasikan kebutuhan digitalisasi bisnis Anda secara gratis. Tim kami siap membantu kapan saja.",
+  formTitle: "Kirim Pesan",
+  formDescription: "Isi formulir di bawah ini dan kami akan segera melayani Anda via WhatsApp.",
+};
+
 function normalizeContent(data: Partial<ContentData>): ContentData {
   return {
     faqs: Array.isArray(data.faqs) ? data.faqs : [],
     testimonials: Array.isArray(data.testimonials) ? data.testimonials : [],
     pricing: Array.isArray(data.pricing) ? data.pricing : [],
     leads: Array.isArray(data.leads) ? data.leads : [],
+    contact: {
+      ...defaultContact,
+      ...(data.contact ?? {}),
+    },
   };
 }
 

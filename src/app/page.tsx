@@ -24,7 +24,7 @@ export default async function Home() {
       <Pricing initialData={content.pricing} />
       <Testimonial initialData={content.testimonials} />
       <FAQ initialData={content.faqs} />
-      <Contact />
+      <Contact initialData={content.contact} />
     </main>
     <Footer />
     </>

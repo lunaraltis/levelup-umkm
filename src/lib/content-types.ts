@@ -32,9 +32,23 @@ export interface LeadItem {
   createdAt: string;
 }
 
+export interface ContactSettings {
+  whatsappNumber: string;
+  whatsappDisplay: string;
+  email: string;
+  location: string;
+  businessHours: string;
+  ctaTitle: string;
+  ctaHighlight: string;
+  ctaDescription: string;
+  formTitle: string;
+  formDescription: string;
+}
+
 export interface ContentData {
   faqs: FaqItem[];
   testimonials: TestimonialItem[];
   pricing: PricingPlan[];
   leads: LeadItem[];
+  contact: ContactSettings;
 }
