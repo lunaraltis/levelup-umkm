@@ -26,6 +26,7 @@ export default function Pricing({ initialData }: { initialData: PricingPlan[] })
         <div className="grid grid-cols-3" style={{ alignItems: 'stretch', gap: '1.5rem' }}>
           {plans.map((plan, index) => {
             const isActive = activePlan === index;
+            const isFeatured = index === 1;
             return (
               <AnimateOnScroll key={index} delay={index * 0.18}>
                 <div onClick={() => {
@@ -37,16 +38,16 @@ export default function Pricing({ initialData }: { initialData: PricingPlan[] })
                 }} style={{
                   backgroundColor: isActive ? 'var(--color-brand)' : 'white',
                   color: isActive ? 'white' : 'var(--color-text)',
-                  borderRadius: 'var(--radius-xl)', padding: '2.5rem 2rem',
+                  borderRadius: 'var(--radius-xl)', padding: isFeatured ? '4rem 2rem 2.5rem' : '2.5rem 2rem',
                   border: isActive ? '1px solid var(--color-brand)' : '1px solid var(--color-border)',
                   boxShadow: isActive ? 'var(--shadow-xl)' : 'none',
                   position: 'relative', cursor: 'pointer',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                   display: 'flex', flexDirection: 'column', height: '100%'
                 }}>
-                  {isActive && (
+                  {isFeatured && (
                     <div style={{
-                      position: 'absolute', top: '-14px', left: '50%', transform: 'translateX(-50%)',
+                      position: 'absolute', top: '1rem', left: '50%', transform: 'translateX(-50%)',
                       backgroundColor: 'var(--color-accent)', color: 'var(--color-brand)',
                       padding: '0.375rem 1.25rem', borderRadius: 'var(--radius-full)',
                       fontSize: '0.8125rem', fontWeight: 700
@@ -57,8 +58,8 @@ export default function Pricing({ initialData }: { initialData: PricingPlan[] })
                   
                   {plan.promoBadge && (
                     <div style={{
-                      display: 'inline-block', backgroundColor: isActive ? 'rgba(255, 255, 255, 0.2)' : 'rgba(239, 68, 68, 0.1)', 
-                      color: isActive ? 'white' : '#ef4444',
+                      display: 'inline-block', backgroundColor: isActive ? 'rgba(255, 255, 255, 0.14)' : 'rgba(212, 175, 55, 0.14)', 
+                      color: isActive ? 'var(--color-accent)' : '#b08912',
                       padding: '0.375rem 0.75rem', borderRadius: 'var(--radius-md)', 
                       fontSize: '0.75rem', fontWeight: 700, marginBottom: '1rem', alignSelf: 'flex-start'
                     }}>
@@ -68,7 +69,7 @@ export default function Pricing({ initialData }: { initialData: PricingPlan[] })
 
                   <div style={{ marginBottom: '1.5rem' }}>
                     {plan.originalPrice && (
-                      <div style={{ textDecoration: 'line-through', color: isActive ? 'rgba(255,255,255,0.6)' : '#ef4444', fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: 600 }}>
+                      <div style={{ textDecoration: 'line-through', color: isActive ? 'rgba(255,255,255,0.58)' : '#b08912', fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: 600 }}>
                         Rp {plan.originalPrice}
                       </div>
                     )}
@@ -85,7 +86,7 @@ export default function Pricing({ initialData }: { initialData: PricingPlan[] })
                   <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', marginBottom: '2rem', flex: 1 }}>
                     {plan.features.map((feature: string, idx: number) => (
                       <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                        <Check size={18} color={isActive ? 'var(--color-accent)' : '#16a34a'} style={{ flexShrink: 0, marginTop: '2px', transition: 'color 0.4s' }} />
+                        <Check size={18} color={'var(--color-accent)'} style={{ flexShrink: 0, marginTop: '2px', transition: 'color 0.4s' }} />
                         <span style={{ fontSize: '0.9375rem' }}>{feature}</span>
                       </li>
                     ))}
