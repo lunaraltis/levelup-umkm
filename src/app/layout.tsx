@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import AnalyticsScripts from "@/components/AnalyticsScripts";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const playfair = Playfair_Display({ 
@@ -13,8 +14,6 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-body",
 });
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://levelup-umkm.web.id";
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -29,7 +28,7 @@ export const metadata: Metadata = {
   keywords: ["UMKM", "Digitalisasi UMKM", "Bikin Website Murah", "Toko Online UMKM", "Jasa Pembuatan Website"],
   openGraph: {
     title: "Level Up UMKM | Digitalisasi Bisnis Anda Naik Kelas",
-    description: "Ubah toko konvensional Anda menjadi bisnis digital yang profesional. Website, toko online, dan manajemen sosial media — semuanya dalam satu paket.",
+    description: "Ubah toko konvensional Anda menjadi bisnis digital yang profesional. Website, toko online, dan manajemen sosial media dalam satu paket.",
     url: siteUrl,
     siteName: "Level Up UMKM",
     images: [
