@@ -1,6 +1,12 @@
 import { createClient } from "@supabase/supabase-js";
 import fallbackData from "../data/content.json";
-import type { ContactSettings, ContentData } from "./content-types";
+import type {
+  ContactSettings,
+  ContentData,
+  HeroContent,
+  PortfolioItem,
+  TrustContent,
+} from "./content-types";
 
 // Kredensial ini HANYA berjalan di server (sangat aman)
 const supabaseUrl = process.env.SUPABASE_URL || "";
@@ -23,12 +29,102 @@ const defaultContact: ContactSettings = {
   formDescription: "Isi formulir di bawah ini dan kami akan segera melayani Anda via WhatsApp.",
 };
 
+const defaultHero: HeroContent = {
+  badge: "Platform Digitalisasi UMKM No. 1",
+  title: "Digitalisasi. Otomatisasi.",
+  highlight: "Naik Kelas.",
+  description:
+    "Ubah toko konvensional Anda menjadi bisnis digital yang profesional. Website, toko online, dan manajemen sosial media dalam satu paket.",
+  primaryCtaLabel: "Lihat Harga Paket",
+  secondaryCtaLabel: "Pelajari Lebih Lanjut",
+  trustedText: "Dipercaya oleh ratusan pelaku UMKM di seluruh Indonesia",
+  brands: [
+    "Kopi Senja",
+    "Rasa Nusantara",
+    "Dian Fashion",
+    "Batik Madura",
+    "Snack Box ID",
+    "Toko Hijau",
+    "Warung Digital",
+    "Dapur Bunda",
+    "Tenun Nusantara",
+    "Keramik Jaya",
+  ],
+};
+
+const defaultPortfolio: PortfolioItem[] = [
+  {
+    title: "Artisan Coffee E-Commerce",
+    category: "Toko Online Spesialis",
+    image: "/images/portfolio-1.png",
+    color: "#f3e8ff",
+    accent: "#9333ea",
+  },
+  {
+    title: "Luxury Fashion Boutique",
+    category: "Brand Premium",
+    image: "/images/portfolio-2.png",
+    color: "#dcfce7",
+    accent: "#16a34a",
+  },
+  {
+    title: "Modern Food & Catering",
+    category: "Layanan Makanan",
+    image: "/images/portfolio-3.png",
+    color: "#ffedd5",
+    accent: "#ea580c",
+  },
+];
+
+const defaultTrust: TrustContent = {
+  eyebrow: "Aman untuk UMKM yang baru mulai",
+  title: "Bukan cuma dibuatkan website,",
+  highlight: "bisnis Anda ikut dipandu.",
+  description:
+    "Kami bantu dari strategi awal sampai website siap dipakai, supaya pemilik bisnis tidak perlu menebak sendiri langkah teknisnya.",
+  items: [
+    {
+      title: "Briefing jelas sebelum mulai",
+      description: "Kebutuhan bisnis, produk, target pembeli, dan gaya brand dirapikan dulu sebelum masuk desain.",
+    },
+    {
+      title: "Progress bisa dipantau",
+      description: "Setiap tahap pengerjaan dibuat transparan, dari struktur halaman sampai revisi akhir.",
+    },
+    {
+      title: "Training setelah live",
+      description: "Anda akan dibantu memahami cara memakai website, membaca data, dan menerima lead dari calon pembeli.",
+    },
+  ],
+  guarantees: [
+    "Konsultasi awal gratis",
+    "Revisi desain sesuai paket",
+    "Support WhatsApp setelah website live",
+  ],
+};
+
 function normalizeContent(data: Partial<ContentData>): ContentData {
   return {
+    hero: {
+      ...defaultHero,
+      ...(data.hero ?? {}),
+      brands: Array.isArray(data.hero?.brands) ? data.hero.brands : defaultHero.brands,
+    },
     faqs: Array.isArray(data.faqs) ? data.faqs : [],
     testimonials: Array.isArray(data.testimonials) ? data.testimonials : [],
+    portfolio: Array.isArray(data.portfolio) ? data.portfolio : defaultPortfolio,
+    trust: {
+      ...defaultTrust,
+      ...(data.trust ?? {}),
+      items: Array.isArray(data.trust?.items) ? data.trust.items : defaultTrust.items,
+      guarantees: Array.isArray(data.trust?.guarantees)
+        ? data.trust.guarantees
+        : defaultTrust.guarantees,
+    },
     pricing: Array.isArray(data.pricing) ? data.pricing : [],
-    leads: Array.isArray(data.leads) ? data.leads : [],
+    leads: Array.isArray(data.leads)
+      ? data.leads.map((lead) => ({ ...lead, status: lead.status ?? "new" }))
+      : [],
     contact: {
       ...defaultContact,
       ...(data.contact ?? {}),

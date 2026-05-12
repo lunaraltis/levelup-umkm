@@ -9,6 +9,8 @@ import Pricing from "@/components/Pricing";
 import Testimonial from "@/components/Testimonial";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
+import StickyWhatsApp from "@/components/StickyWhatsApp";
+import TrustSection from "@/components/TrustSection";
 import { getContent } from "@/lib/cms";
 import { absoluteUrl, siteUrl } from "@/lib/site";
 import type { ContentData } from "@/lib/content-types";
@@ -106,16 +108,18 @@ export default async function Home() {
       <JsonLd data={buildJsonLd(content)} />
       <Navbar />
       <main>
-      <Hero />
-      <About />
-      <Features />
-      <Portfolio />
-      <Pricing initialData={content.pricing} />
-      <Testimonial initialData={content.testimonials} />
-      <FAQ initialData={content.faqs} />
-      <Contact initialData={content.contact} />
-    </main>
-    <Footer />
+        <Hero initialData={content.hero} />
+        <About />
+        <Features />
+        <TrustSection initialData={content.trust} />
+        <Portfolio initialData={content.portfolio} />
+        <Pricing initialData={content.pricing} />
+        <Testimonial initialData={content.testimonials} />
+        <FAQ initialData={content.faqs} />
+        <Contact initialData={content.contact} />
+      </main>
+      <StickyWhatsApp contact={content.contact} />
+      <Footer />
     </>
   );
 }

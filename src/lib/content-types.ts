@@ -21,6 +21,8 @@ export interface PricingPlan {
   features: string[];
 }
 
+export type LeadStatus = "new" | "contacted" | "won" | "lost";
+
 export interface LeadItem {
   id: string;
   name: string;
@@ -30,6 +32,7 @@ export interface LeadItem {
   message: string;
   pageUrl: string;
   createdAt: string;
+  status?: LeadStatus;
 }
 
 export interface ContactSettings {
@@ -45,9 +48,45 @@ export interface ContactSettings {
   formDescription: string;
 }
 
+export interface HeroContent {
+  badge: string;
+  title: string;
+  highlight: string;
+  description: string;
+  primaryCtaLabel: string;
+  secondaryCtaLabel: string;
+  trustedText: string;
+  brands: string[];
+}
+
+export interface PortfolioItem {
+  title: string;
+  category: string;
+  image: string;
+  color: string;
+  accent: string;
+}
+
+export interface TrustItem {
+  title: string;
+  description: string;
+}
+
+export interface TrustContent {
+  eyebrow: string;
+  title: string;
+  highlight: string;
+  description: string;
+  items: TrustItem[];
+  guarantees: string[];
+}
+
 export interface ContentData {
+  hero: HeroContent;
   faqs: FaqItem[];
   testimonials: TestimonialItem[];
+  portfolio: PortfolioItem[];
+  trust: TrustContent;
   pricing: PricingPlan[];
   leads: LeadItem[];
   contact: ContactSettings;

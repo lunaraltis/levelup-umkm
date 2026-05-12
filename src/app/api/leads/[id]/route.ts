@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { deleteLead } from "@/lib/leads";
+import { deleteLead, updateLeadStatus } from "@/lib/leads";
+import type { LeadStatus } from "@/lib/content-types";
+
+const ALLOWED_STATUSES: LeadStatus[] = ["new", "contacted", "won", "lost"];
 
 export async function DELETE(request: Request) {
   if (!(await isAdminAuthenticated())) {
@@ -29,4 +32,50 @@ export async function DELETE(request: Request) {
   }
 
   return NextResponse.json({ success: true, message: "Lead berhasil dihapus." });
+}
+
+export async function PATCH(request: Request) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json(
+      { success: false, message: "Akses admin diperlukan." },
+      { status: 401 },
+    );
+  }
+
+  const id = new URL(request.url).pathname.split("/").pop();
+
+  if (!id) {
+    return NextResponse.json(
+      { success: false, message: "ID lead tidak valid." },
+      { status: 400 },
+    );
+  }
+
+  try {
+    const body = (await request.json()) as { status?: string };
+    const status = body.status as LeadStatus | undefined;
+
+    if (!status || !ALLOWED_STATUSES.includes(status)) {
+      return NextResponse.json(
+        { success: false, message: "Status lead tidak valid." },
+        { status: 400 },
+      );
+    }
+
+    const success = await updateLeadStatus(id, status);
+
+    if (!success) {
+      return NextResponse.json(
+        { success: false, message: "Lead tidak ditemukan." },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({ success: true, message: "Status lead diperbarui." });
+  } catch {
+    return NextResponse.json(
+      { success: false, message: "Payload status tidak valid." },
+      { status: 400 },
+    );
+  }
 }
