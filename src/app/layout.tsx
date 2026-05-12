@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   title: "Level Up UMKM | Digitalisasi Bisnis Anda Naik Kelas",
   description: "Platform No.1 untuk mengubah toko konvensional UMKM Anda menjadi bisnis digital profesional. Buat website, toko online otomatis, dan manajemen sosmed.",
   keywords: ["UMKM", "Digitalisasi UMKM", "Bikin Website Murah", "Toko Online UMKM", "Jasa Pembuatan Website"],
+  verification: {
+    google: "BrHeKMgc9vIc46tYoWSQjQh7O6VhLi7CYHT-PM_XvGE",
+  },
   openGraph: {
     title: "Level Up UMKM | Digitalisasi Bisnis Anda Naik Kelas",
     description: "Ubah toko konvensional Anda menjadi bisnis digital yang profesional. Website, toko online, dan manajemen sosial media dalam satu paket.",
